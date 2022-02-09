@@ -1,8 +1,5 @@
-FROM ubuntu:latest
-RUN apt-get update -y
-RUN apt-get install -y python3-pip python-dev build-essential
-COPY . /app
+FROM python:alpine
 WORKDIR /app
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+COPY ./app /app
+RUN pip install Flask
+CMD ["python","index.py"]
