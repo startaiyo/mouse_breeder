@@ -1,5 +1,6 @@
 from src import app
+from flask import render_template
 
 @app.route('/')
 def index():
-    return "<h1>hoge</h1>"
+    return render_template('top.html')
