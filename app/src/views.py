@@ -1,12 +1,12 @@
-from src import app
 from flask import render_template, request, redirect
 from models.models import Mouse
 from database import db
+from app import app
 
 @app.route('/')
 def index():
     mice = Mouse.query.all()
-    return render_template('top.html', mice = mice)
+    return render_template('top.html')
 
 @app.route('/create', methods = ["POST"])
 def create():

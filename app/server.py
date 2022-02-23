@@ -1,7 +1,7 @@
 import sys
 sys.dont_write_bytecode = True
 
-from src import app
+from src.views import app
 
 if __name__ == '__main__':
     host = '0.0.0.0'
