@@ -8,9 +8,13 @@ services:
       - ./mysql/sqls:/docker-entrypoint-initdb.d # 初期化時に実行するSQL
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # パスワードはお好みで
+    ports:
+      - "3306:3306"
   flask:
     build: .
     ports:
       - "5000:80"
     volumes:
       - ./app:/app
+    links:
+      - db
