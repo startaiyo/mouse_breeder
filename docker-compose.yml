@@ -12,11 +12,11 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_HOST: ${DB_HOST}
     ports:
-      - "3306:3306"
+      - 3306:3306
   flask:
     build: .
     ports:
-      - "5000:80"
+      - 5000:80
     volumes:
       - ./app:/app
     links:
