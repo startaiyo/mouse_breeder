@@ -13,17 +13,17 @@ function onOpen() {
     メンターとエンターの更新()
     会員データ更新()
     機会創出更新()
+    案件情報更新()
     各訴求管理ページ更新()
     機会創出追加()
-    案件情報更新()
   }
   
   function チームメンバーシート作成() {
     var ss_copyFrom = SpreadsheetApp.openById('1_R4DXmksraue_PLhtxhZwIJJTxY2tD9y-0ppEI_W0mw');//OCチームインフラ原本
     var ss_copyTo = SpreadsheetApp.getActiveSpreadsheet();
-    var teamMemberList = ss_copyFrom.getSheetByName('チーム全体').getRange('K2:2').getValues()[0].filter(String);
-    var existMemberSheetList = makeMemberSheetList(ss_copyFrom.getSheets());
-    var existMemberSokyuSheetList = makeMemberSokyuSheetList(ss_copyFrom.getSheets()).map(e => e.replace("_訴求管理",""));
+    var teamMemberList = ss_copyTo.getSheetByName('チーム全体').getRange('K2:2').getValues()[0].filter(String);
+    var existMemberSheetList = makeMemberSheetList(ss_copyTo.getSheets());
+    var existMemberSokyuSheetList = makeMemberSokyuSheetList(ss_copyTo.getSheets()).map(e => e.replace("_訴求管理",""));
     for (let i = 0; i < teamMemberList.length; i++){
       if (!existMemberSheetList.includes(teamMemberList[i])){
         let newSokyuSheet = ss_copyFrom.getSheetByName("土井星太朗").copyTo(ss_copyTo);
@@ -35,6 +35,7 @@ function onOpen() {
         newSokyuSheet.setName(teamMemberList[i]+"_訴求管理");
       }
     }
+    各訴求管理ページ更新()
   }
   
   function メンターとエンターの更新() {
@@ -84,10 +85,10 @@ function onOpen() {
   
   
   function 各訴求管理ページ更新(){
-    var ss_copyFrom = SpreadsheetApp.openById("1_R4DXmksraue_PLhtxhZwIJJTxY2tD9y-0ppEI_W0mw");
     var ss_tmp = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet_copyFrom = ss_copyFrom.getSheetByName('案件列挙参照用'); //コピー元のスプレッドシートの値を抜き出したいシート名
+    var sheet_copyFrom = ss_tmp.getSheetByName('案件列挙参照用'); //コピー元のスプレッドシートの値を抜き出したいシート名
     var temporary_anken = sheet_copyFrom.getRange('S2:S').getValues().map(e=>e[0]).filter(String);
+    Logger.log(temporary_anken);
     var entorSheet = ss_tmp.getSheetByName('メンターとエンター組み合わせリスト');
     var lastRowOfEntor = entorSheet.getRange('A2:A').getValues().filter(String).length;
     var entorList = entorSheet.getRange(2,1,lastRowOfEntor,2).getValues();
@@ -100,8 +101,7 @@ function onOpen() {
       if (sheet_copyTo.getRange('A4').getValue() !== memberName){
         sheet_copyTo.getRange(4,1,sheet_copyTo.getLastRow()-3,2).clear();
         for (let d = 0; d < Math.floor((sheet_copyTo.getLastColumn()-2)/4); d++){
-          sheet_copyTo.getRange(4,3+4*d,sheet_copyTo.getLastRow()-3,1).clear();
-          sheet_copyTo.getRange(4,5+4*d,sheet_copyTo.getLastRow()-3,2).clear();
+          sheet_copyTo.getRange(4,5+6*d,sheet_copyTo.getLastRow()-3,4).clear();
         }
       }
       var entorListForMentor = entorList.filter(couple => couple[0] === memberName);
@@ -161,10 +161,10 @@ function onOpen() {
     var new_event_list = [];
     var new_entry_list = [];
     if (scf_ev_lastrow !== sct_ev_lastrow){
-      new_event_list = sheet_copyFrom_event.getRange(4+sct_ev_lastrow,1,scf_ev_lastrow-sct_ev_lastrow,17).getValues();
+      new_event_list = sheet_copyFrom_event.getRange(4+sct_ev_lastrow,1,scf_ev_lastrow-sct_ev_lastrow,sheet_copyFrom_event.getLastColumn()).getValues();
     }
     if (scf_en_lastrow !== sct_en_lastrow){
-      new_entry_list = sheet_copyFrom_entry.getRange(4+sct_en_lastrow,1,scf_en_lastrow-sct_en_lastrow,17).getValues();
+      new_entry_list = sheet_copyFrom_entry.getRange(4+sct_en_lastrow,1,scf_en_lastrow-sct_en_lastrow,sheet_copyFrom_entry.getLastColumn()).getValues();
     }
     var new_anken_list = new_event_list.concat(new_entry_list);
     Logger.log(new_anken_list);
@@ -172,8 +172,8 @@ function onOpen() {
     for (const anken of new_anken_list){
       sheet_anken_rekkyo.appendRow(anken);
     }
-    sheet_copyTo_event.getRange(3,1,scf_ev_lastrow,17).setValues(sheet_copyFrom_event.getRange(4,1,scf_ev_lastrow,17).getValues());
-    sheet_copyTo_entry.getRange(3,1,scf_en_lastrow,17).setValues(sheet_copyFrom_entry.getRange(4,1,scf_en_lastrow,17).getValues());
+    sheet_copyTo_event.getRange(3,1,scf_ev_lastrow,sheet_copyFrom_event.getLastColumn()).setValues(sheet_copyFrom_event.getRange(4,1,scf_ev_lastrow,sheet_copyFrom_event.getLastColumn()).getValues());
+    sheet_copyTo_entry.getRange(3,1,scf_en_lastrow,sheet_copyFrom_entry.getLastColumn()).setValues(sheet_copyFrom_entry.getRange(4,1,scf_en_lastrow,sheet_copyFrom_entry.getLastColumn()).getValues());
   
   }
   function makeMemberSheetList (list){
