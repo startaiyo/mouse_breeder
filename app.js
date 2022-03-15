@@ -86,7 +86,8 @@ function onOpen() {
   
   function 各訴求管理ページ更新(){
     var ss_tmp = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet_copyFrom = ss_tmp.getSheetByName('案件列挙参照用'); //コピー元のスプレッドシートの値を抜き出したいシート名
+    var ss_copyFrom = SpreadsheetApp.openById("1_R4DXmksraue_PLhtxhZwIJJTxY2tD9y-0ppEI_W0mw");
+    var sheet_copyFrom = ss_copyFrom.getSheetByName('案件列挙参照用'); //コピー元のスプレッドシートの値を抜き出したいシート名
     var temporary_anken = sheet_copyFrom.getRange('S2:S').getValues().map(e=>e[0]).filter(String);
     Logger.log(temporary_anken);
     var entorSheet = ss_tmp.getSheetByName('メンターとエンター組み合わせリスト');
@@ -161,10 +162,10 @@ function onOpen() {
     var new_event_list = [];
     var new_entry_list = [];
     if (scf_ev_lastrow !== sct_ev_lastrow){
-      new_event_list = sheet_copyFrom_event.getRange(4+sct_ev_lastrow,1,scf_ev_lastrow-sct_ev_lastrow,sheet_copyFrom_event.getLastColumn()).getValues();
+      new_event_list = sheet_copyFrom_event.getRange(4+sct_ev_lastrow,1,scf_ev_lastrow-sct_ev_lastrow,17).getValues();
     }
     if (scf_en_lastrow !== sct_en_lastrow){
-      new_entry_list = sheet_copyFrom_entry.getRange(4+sct_en_lastrow,1,scf_en_lastrow-sct_en_lastrow,sheet_copyFrom_entry.getLastColumn()).getValues();
+      new_entry_list = sheet_copyFrom_entry.getRange(4+sct_en_lastrow,1,scf_en_lastrow-sct_en_lastrow,17).getValues();
     }
     var new_anken_list = new_event_list.concat(new_entry_list);
     Logger.log(new_anken_list);
@@ -172,10 +173,10 @@ function onOpen() {
     for (const anken of new_anken_list){
       sheet_anken_rekkyo.appendRow(anken);
     }
-    sheet_copyTo_event.getRange(3,1,scf_ev_lastrow,sheet_copyFrom_event.getLastColumn()).setValues(sheet_copyFrom_event.getRange(4,1,scf_ev_lastrow,sheet_copyFrom_event.getLastColumn()).getValues());
-    sheet_copyTo_entry.getRange(3,1,scf_en_lastrow,sheet_copyFrom_entry.getLastColumn()).setValues(sheet_copyFrom_entry.getRange(4,1,scf_en_lastrow,sheet_copyFrom_entry.getLastColumn()).getValues());
-  
+    sheet_copyTo_event.getRange(3,1,scf_ev_lastrow,17).setValues(sheet_copyFrom_event.getRange(4,1,scf_ev_lastrow,17).getValues());
+    sheet_copyTo_entry.getRange(3,1,scf_en_lastrow,17).setValues(sheet_copyFrom_entry.getRange(4,1,scf_en_lastrow,17).getValues());
   }
+  
   function makeMemberSheetList (list){
     var newList = [];
     var defaultSheets = ["案件まとめ", "ReadMe", "案件列挙（重複なし）", "案件列挙", "（原本）企業イベント", "（原本）企業エントリー", "機会創出", "（原本）機会創出", "入力規則", "各チーム情報","メンターとエンター組み合わせリスト","チーム選択タブ","チーム会用","期間内CV","チーム全体","訴求管理","UU率・機会創出平均計算", "アクティブエンター情報", "エンター情報", "sub_エンター情報", "会員データ", "（原本）会員データ", "初回アンケ", "（原本）初回アンケ", "（原本）LINE@", "面談後感想アンケート", "（原本）面談後感想アンケート","（永続化）機会創出","案件列挙参照用"];
@@ -216,4 +217,6 @@ function onOpen() {
   //     ss_deleteOrigin.deleteSheet(ss_deleteOrigin.getSheetByName(deleteSheetList[j]));
   //   }
   // }
+  
+  
   

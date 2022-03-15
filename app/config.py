@@ -11,6 +11,7 @@ class DevelopmentConfig:
         'user': 'root',
         'password': 'hoge',
         'host': 'host.docker.internal',
+        'database': 'flask_sample'
     })
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False

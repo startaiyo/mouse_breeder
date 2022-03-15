@@ -1,0 +1,15 @@
+{% extends "./layout.html" %}
+
+{% block body %}
+<h1>hogehoge</h1>
+{% for mouse in mice %}
+<p>{{ mouse.gene1 }}</p>
+{% endfor %}
+<form method="POST" action="/create" style="display: inline">
+    <input type="text" name = "gene1" placeholder="gene1">
+    <input type="text" name = "gene2" placeholder="gene2">
+    <input type="text" name = "othergene" placeholder="othergene">
+    <input type="date" name = "dob" placeholder="dob">
+    <input type="submit" value="送信">
+</form>
+{% endblock %}
