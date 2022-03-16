@@ -1,2 +1,4 @@
 .env
 /mysql/mysql_data
+/app/migrations
+/app/__pycache__

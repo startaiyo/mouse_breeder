@@ -9,3 +9,6 @@ gunicorn
 flask_marshmallow
 marshmallow-sqlalchemy
 cryptography
+Flask-Cors
+marshmallow
+marshmallow-sqlalchemy
