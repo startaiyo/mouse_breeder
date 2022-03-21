@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect
 from models.models import Mouse
 from app import app
+from database import db
 import sys
 
 @app.route('/')
@@ -19,9 +20,9 @@ def create():
                 othergene = request.form.get("othergene"),
                 dob = request.form.get("dob")
             )
-            print(mouse, flush=True)
-            db_session.add(mouse)
-            db_session.commit()
+            print(db.session, flush=True)
+            db.session.add(mouse)
+            db.session.commit()
         except Exception as e:
-            print("Failed to add mouse")
+            print("Failed to add mouse", flush=True)
     return redirect('/')
