@@ -20,10 +20,10 @@
 {% endfor %}
 </table>
 <form method="POST" action="/create" style="display: inline">
-    <input type="text" name = "gene1" placeholder="gene1">
-    <input type="text" name = "gene2" placeholder="gene2">
+    <input type="text" name = "gene1" placeholder="gene1" value = "+">
+    <input type="text" name = "gene2" placeholder="gene2" value = "+">
     <input type="text" name = "othergene" placeholder="othergene">
-    <input type="date" name = "dob" placeholder="dob">
+    <input type="date" name = "dob" placeholder="dob" value = {{ today }}>
     <input type="submit" value="送信">
 </form>
 {% endblock %}
