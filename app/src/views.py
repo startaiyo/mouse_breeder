@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, url_for
 from models.models import Mouse
 from app import app
 from database import db
@@ -25,4 +25,14 @@ def create():
             db.session.commit()
         except Exception as e:
             print("Failed to add mouse", flush=True)
+    return redirect('/')
+
+@app.route('/<int:id>/delete',methods = ["POST"])
+def delete(id):
+    try:
+        mouse = Mouse.query.get(id)
+        db.session.delete(mouse)
+        db.session.commit()
+    except Exception as e:
+        print("Failed to delete mouse", flush=True)
     return redirect('/')

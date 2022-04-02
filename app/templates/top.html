@@ -16,6 +16,11 @@
         <td>{{ mouse.gene2 }}</td>
         <td>{{ mouse.othergene }}</td>
         <td>{{ mouse.dob }}</td>
+        <td>
+            <form action="{{ url_for('delete', id = mouse.id) }}", method = "POST">
+                <button type="submit" class="btn btn-danger" style="margin-left:5px">Delete</button>
+            </form>
+        </td>
     </tr>
 {% endfor %}
 </table>
