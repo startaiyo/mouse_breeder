@@ -12,3 +12,4 @@ cryptography
 Flask-Cors
 marshmallow
 marshmallow-sqlalchemy
+numpy

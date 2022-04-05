@@ -24,6 +24,10 @@
     </tr>
 {% endfor %}
 </table>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/png, image/jpeg">
+    <button type="submit">送信</button>
+</form>
 <form method="POST" action="/create" style="display: inline">
     <input type="text" name = "gene1" placeholder="gene1" value = "+">
     <input type="text" name = "gene2" placeholder="gene2" value = "+">
@@ -31,4 +35,9 @@
     <input type="date" name = "dob" placeholder="dob" value = {{ today }}>
     <input type="submit" value="送信">
 </form>
+{% if img_name %}
+<div>
+    <img src="{{ url_for('static', filename='images/' + img_name) }}" style="margin-top: 10px; vertical-align: bottom; width: 400px;">
+</div>
+{% endif %}
 {% endblock %}

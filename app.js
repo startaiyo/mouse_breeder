@@ -90,7 +90,7 @@ function 各訴求管理ページ更新(){
   var sheet_copyFrom = ss_copyFrom.getSheetByName('案件列挙参照用'); //コピー元のスプレッドシートの値を抜き出したいシート名
   var temporary_anken = sheet_copyFrom.getRange('S2:S').getValues().map(e=>e[0]).filter(String);
   Logger.log(temporary_anken);
-  var entorSheet = ss_tmp.getSheetByName('メンターとエンター組み合わせリスト');
+  var entorSheet = ss_copyFrom.getSheetByName('メンターとエンター組み合わせリスト');
   var lastRowOfEntor = entorSheet.getRange('A2:A').getValues().filter(String).length;
   var entorList = entorSheet.getRange(2,1,lastRowOfEntor,2).getValues();
   var lastRow = sheet_copyFrom.getRange('R2:R').getValues().filter(String).length; //最終行を取得
@@ -179,7 +179,7 @@ function 案件情報更新(){
 
 function makeMemberSheetList (list){
   var newList = [];
-  var defaultSheets = ["案件まとめ", "ReadMe", "案件列挙（重複なし）", "案件列挙", "（原本）企業イベント", "（原本）企業エントリー", "機会創出", "（原本）機会創出", "入力規則", "各チーム情報","メンターとエンター組み合わせリスト","チーム選択タブ","チーム会用","期間内CV","チーム全体","訴求管理","UU率・機会創出平均計算", "アクティブエンター情報", "エンター情報", "sub_エンター情報", "会員データ", "（原本）会員データ", "初回アンケ", "（原本）初回アンケ", "（原本）LINE@", "面談後感想アンケート", "（原本）面談後感想アンケート","（永続化）機会創出","案件列挙参照用"];
+  var defaultSheets = ["案件まとめ", "ReadMe", "案件列挙（重複なし）", "案件列挙", "（原本）企業イベント", "（原本）企業エントリー", "機会創出", "（原本）機会創出", "入力規則", "各チーム情報","メンターとエンター組み合わせリスト","チーム選択タブ","チーム会用","期間内CV","チーム全体","訴求管理","UU率・機会創出平均計算", "アクティブエンター情報", "エンター情報", "sub_エンター情報", "会員データ", "（原本）会員データ", "初回アンケ", "（原本）初回アンケ", "（原本）LINE@", "面談後感想アンケート", "（原本）面談後感想アンケート","（永続化）機会創出","案件列挙参照用","(原本)案件管理シート"];
   for (let i = 0; i < list.length; i++){
     if((!defaultSheets.includes(list[i].getName()))&&(!list[i].getName().endsWith("_訴求管理"))){
       newList.push(list[i].getName());
@@ -190,7 +190,7 @@ function makeMemberSheetList (list){
 
 function makeMemberSokyuSheetList (list){
   var newList = [];
-  var defaultSheets = ["案件まとめ", "ReadMe", "案件列挙（重複なし）", "案件列挙", "（原本）企業イベント", "（原本）企業エントリー", "機会創出", "（原本）機会創出", "入力規則", "各チーム情報","メンターとエンター組み合わせリスト","チーム選択タブ","チーム会用","期間内CV","チーム全体","訴求管理","UU率・機会創出平均計算", "アクティブエンター情報", "エンター情報", "sub_エンター情報", "会員データ", "（原本）会員データ", "初回アンケ", "（原本）初回アンケ", "（原本）LINE@", "面談後感想アンケート", "（原本）面談後感想アンケート","（永続化）機会創出","案件列挙参照用"];
+  var defaultSheets = ["案件まとめ", "ReadMe", "案件列挙（重複なし）", "案件列挙", "（原本）企業イベント", "（原本）企業エントリー", "機会創出", "（原本）機会創出", "入力規則", "各チーム情報","メンターとエンター組み合わせリスト","チーム選択タブ","チーム会用","期間内CV","チーム全体","訴求管理","UU率・機会創出平均計算", "アクティブエンター情報", "エンター情報", "sub_エンター情報", "会員データ", "（原本）会員データ", "初回アンケ", "（原本）初回アンケ", "（原本）LINE@", "面談後感想アンケート", "（原本）面談後感想アンケート","（永続化）機会創出","案件列挙参照用","(原本)案件管理シート"];
   for (let i = 0; i < list.length; i++){
     if((!defaultSheets.includes(list[i].getName()))&&(list[i].getName().endsWith("_訴求管理"))){
       newList.push(list[i].getName());
@@ -210,13 +210,10 @@ function doubleIndexOf(element, array, index1, index2){
   }
   return result;
 }
-function 全消し(){
-  var ss_deleteOrigin = SpreadsheetApp.getActiveSpreadsheet();
-  var deleteSheetList = makeMemberSheetList(ss_deleteOrigin.getSheets()).concat(makeMemberSokyuSheetList(ss_deleteOrigin.getSheets())).filter(e=>e.replace("_訴求管理","")!=="土井星太朗")
-  for (let j = 0; j < deleteSheetList.length; j++){
-    ss_deleteOrigin.deleteSheet(ss_deleteOrigin.getSheetByName(deleteSheetList[j]));
-  }
-}
-  
-  
-  
+// function 全消し(){
+//   var ss_deleteOrigin = SpreadsheetApp.getActiveSpreadsheet();
+//   var deleteSheetList = makeMemberSheetList(ss_deleteOrigin.getSheets()).concat(makeMemberSokyuSheetList(ss_deleteOrigin.getSheets())).filter(e=>e.replace("_訴求管理","")!=="土井星太朗")
+//   for (let j = 0; j < deleteSheetList.length; j++){
+//     ss_deleteOrigin.deleteSheet(ss_deleteOrigin.getSheetByName(deleteSheetList[j]));
+//   }
+// }
