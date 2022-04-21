@@ -56,6 +56,7 @@ def delete(id):
 @app.route('/upload',methods = ["POST"])
 def upload():
     img_name = ""
+    mice = Mouse.query.all()
     if request.method == 'POST':
         # 画像をロード
         stream = request.files['image'].stream
@@ -71,4 +72,4 @@ def upload():
             # 画像の保存
             cv2.imwrite(os.path.join(IMG_PATH + img_name), gray)
 
-    return render_template('top.html', img_name=img_name)
+    return render_template('top.html', img_name=img_name, mice=mice)
