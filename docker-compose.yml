@@ -23,3 +23,5 @@ services:
       - ./app:/app
     links:
       - db
+    environment:
+      FLASK_APP: server.py
