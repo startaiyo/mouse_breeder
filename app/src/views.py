@@ -71,5 +71,18 @@ def upload():
             img_name = "gray" + now_date.strftime('%Y-%m-%d-%H-%M-%S') + ".png"
             # 画像の保存
             cv2.imwrite(os.path.join(IMG_PATH + img_name), gray)
+        
+        ### マーカーの設定
 
+        marker_dpi = 72 # 画面解像度(マーカーサイズ)
+        scan_dpi = 300 # スキャン画像の解像度
+
+        # グレースケール (mode = 0)でファイルを読み込む
+        marker=cv2.imread(os.path.join(IMG_PATH + 'marker.jpeg'),0) 
+
+        # マーカーのサイズを取得
+        w, h = marker.shape[::-1]
+
+        # マーカーのサイズを変更
+        marker = cv2.resize(marker, (int(h*scan_dpi/marker_dpi), int(w*scan_dpi/marker_dpi)))
     return render_template('top.html', img_name=img_name, mice=mice)
